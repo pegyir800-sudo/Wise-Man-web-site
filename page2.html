@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Quantum Hub - Student Information
+</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0f172a;
+color:white;
+padding:15px;
+min-height:100vh;
+}
+
+.blur1,.blur2{
+position:fixed;
+border-radius:50%;
+filter:blur(100px);
+z-index:-1;
+}
+
+.blur1{
+width:250px;
+height:250px;
+background:#7c3aed;
+top:-50px;
+left:-50px;
+}
+
+.blur2{
+width:250px;
+height:250px;
+background:#06b6d4;
+bottom:-50px;
+right:-50px;
+}
+
+.navbar{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:20px;
+}
+
+.back-btn{
+width:45px;
+height:45px;
+border:none;
+border-radius:12px;
+background:rgba(255,255,255,.08);
+color:white;
+cursor:pointer;
+}
+
+.page-title{
+font-size:22px;
+font-weight:700;
+}
+
+.card{
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.1);
+backdrop-filter:blur(15px);
+border-radius:25px;
+padding:20px;
+margin-bottom:20px;
+}
+
+.card h3{
+margin-bottom:15px;
+}
+
+input,select{
+width:100%;
+padding:14px;
+margin-bottom:12px;
+border:none;
+outline:none;
+border-radius:14px;
+background:rgba(255,255,255,.08);
+color:white;
+}
+
+.preview-box p{
+margin-bottom:10px;
+}
+
+.subject-item{
+margin-bottom:15px;
+}
+
+.subject-item label{
+display:block;
+margin-bottom:6px;
+}
+
+.result-btn{
+width:100%;
+padding:16px;
+border:none;
+border-radius:18px;
+background:linear-gradient(
+135deg,
+#7c3aed,
+#06b6d4
+);
+color:white;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+}
+
+footer{
+padding:20px;
+text-align:center;
+color:#94a3b8;
+}
+
+</style>
+</head>
+<body>
+
+<div class="blur1"></div>
+<div class="blur2"></div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<button
+class="back-btn"
+onclick="history.back()">
+
+<i class="fas fa-arrow-left"></i>
+
+</button>
+
+<div class="page-title">
+
+Student Information
+
+</div>
+
+</div>
+
+<!-- STUDENT INFO -->
+
+<div class="card">
+
+<h3>Student Details</h3>
+
+<input
+type="text"
+id="studentName"
+placeholder="Student Name">
+
+<input
+type="text"
+id="schoolName"
+placeholder="School Name">
+
+<select id="examYear">
+
+<option>2026</option>
+<option>2025</option>
+<option>2024</option>
+
+</select>
+
+<input
+type="text"
+id="country"
+placeholder="Country">
+
+<input
+type="text"
+id="department"
+readonly>
+
+</div>
+
+<!-- PREVIEW -->
+
+<div class="card">
+
+<h3>Live Preview</h3>
+
+<div class="preview-box">
+
+<p>
+Name:
+<span id="previewName">
+Not Set
+</span>
+</p>
+
+<p>
+School:
+<span id="previewSchool">
+Not Set
+</span>
+</p>
+
+<p>
+Year:
+<span id="previewYear">
+2026
+</span>
+</p>
+
+<p>
+Country:
+<span id="previewCountry">
+Not Set
+</span>
+</p>
+
+<p>
+Department:
+<span id="previewDepartment">
+Not Set
+</span>
+</p>
+
+</div>
+
+</div>
+
+<!-- SUBJECTS -->
+
+<div class="card">
+
+<h3>Subject Scores</h3>
+
+<div id="subjectsContainer">
+
+</div>
+
+</div>
+
+<button
+class="result-btn"
+onclick="goToResultCard()">
+
+Get My Result Card
+
+</button>
+
+<footer>
+
+© Quantum Hub 2026
+
+</footer>
+
+<script>
+
+/* SUBJECT DATABASE */
+
+const departments={
+
+"General Science":[
+"English Language",
+"Mathematics",
+"Integrated Science",
+"Social Studies",
+"Physics",
+"Chemistry",
+"Biology",
+"Elective Mathematics"
+],
+
+"General Arts":[
+"English Language",
+"Mathematics",
+"Integrated Science",
+"Social Studies",
+"Government",
+"History",
+"Literature",
+"Economics"
+],
+
+"Business":[
+"English Language",
+"Mathematics",
+"Integrated Science",
+"Social Studies",
+"Financial Accounting",
+"Business Management",
+"Economics",
+"Cost Accounting"
+],
+
+"Visual Arts":[
+"English Language",
+"Mathematics",
+"Integrated Science",
+"Social Studies",
+"Graphic Design",
+"Picture Making",
+"Sculpture",
+"Textiles"
+],
+
+"Home Economics":[
+"English Language",
+"Mathematics",
+"Integrated Science",
+"Social Studies",
+"Food & Nutrition",
+"Management In Living",
+"Clothing & Textiles",
+"GKA"
+],
+
+"Technical":[
+"English Language",
+"Mathematics",
+"Integrated Science",
+"Social Studies",
+"Technical Drawing",
+"Building Construction",
+"Metal Work",
+"Electronics"
+],
+
+"Agricultural Science":[
+"English Language",
+"Mathematics",
+"Integrated Science",
+"Social Studies",
+"Animal Husbandry",
+"Crop Science",
+"General Agriculture",
+"Chemistry"
+],
+
+"Computer Science":[
+"English Language",
+"Mathematics",
+"Programming",
+"Data Structures",
+"Database",
+"Networking",
+"Web Development",
+"Algorithms"
+],
+
+"Engineering":[
+"Mathematics",
+"Physics",
+"Chemistry",
+"Technical Drawing",
+"Mechanics",
+"Engineering Science",
+"Electronics",
+"Further Mathematics"
+],
+
+"Health Sciences":[
+"English Language",
+"Mathematics",
+"Biology",
+"Chemistry",
+"Physics",
+"Health Science",
+"Anatomy",
+"Integrated Science"
+]
+
+};
+
+/* LOAD DEPARTMENT */
+
+const department =
+localStorage.getItem(
+"selectedDepartment"
+);
+
+document.getElementById(
+"department"
+).value = department;
+
+document.getElementById(
+"previewDepartment"
+).innerHTML = department;
+
+/* LOAD SUBJECTS */
+
+const container =
+document.getElementById(
+"subjectsContainer"
+);
+
+if(departments[department]){
+
+departments[department]
+.forEach(subject=>{
+
+container.innerHTML += `
+
+<div class="subject-item">
+
+<label>${subject}</label>
+
+<input
+type="number"
+class="score"
+data-subject="${subject}"
+placeholder="Enter score"
+min="0"
+max="100">
+
+</div>
+
+`;
+
+});
+
+}
+
+/* LIVE PREVIEW */
+
+document.addEventListener(
+"input",
+()=>{
+
+previewName.innerHTML=
+studentName.value ||
+"Not Set";
+
+previewSchool.innerHTML=
+schoolName.value ||
+"Not Set";
+
+previewCountry.innerHTML=
+country.value ||
+"Not Set";
+
+previewYear.innerHTML=
+examYear.value;
+
+});
+
+/* SAVE & NEXT */
+
+function goToResultCard(){
+
+const scores={};
+
+document
+.querySelectorAll(".score")
+.forEach(input=>{
+
+scores[
+input.dataset.subject
+]=input.value;
+
+});
+
+localStorage.setItem(
+"studentName",
+studentName.value
+);
+
+localStorage.setItem(
+"schoolName",
+schoolName.value
+);
+
+localStorage.setItem(
+"examYear",
+examYear.value
+);
+
+localStorage.setItem(
+"country",
+document.getElementById("country").value
+);
+
+localStorage.setItem(
+"selectedDepartment",
+document.getElementById("department").value
+);
+
+localStorage.setItem(
+"scores",
+JSON.stringify(scores)
+);
+
+window.location.href=
+"page3.html";
+
+}
+
+</script>
+
+</body>
+</html>

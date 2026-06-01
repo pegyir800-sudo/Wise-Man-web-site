@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantum Quiz AI</title>
+
+<style>
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+border-radius:15px;
+max-width:500px;
+margin:auto;
+}
+
+button{
+padding:10px;
+margin:5px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+.option{
+display:block;
+width:100%;
+margin:8px 0;
+background:#334155;
+color:white;
+}
+
+.correct{background:#22c55e;}
+.wrong{background:#ef4444;}
+
+.timer{
+font-size:20px;
+margin:10px;
+color:#facc15;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>AI Quiz System</h2>
+
+<select id="subject">
+<option>English</option>
+<option>Math</option>
+<option>Science</option>
+<option>Computing</option>
+</select>
+
+<br><br>
+
+<button onclick="startQuiz()">Start Quiz</button>
+
+<div id="quizBox" style="display:none">
+
+<h3 id="question"></h3>
+
+<div id="options"></div>
+
+<div class="timer">
+Time Left: <span id="time">30</span>s
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let currentQuestion = null;
+let timer;
+let timeLeft = 30;
+let score = 0;
+let difficulty = "easy";
+
+async function fetchQuestion(){
+
+const subject = document.getElementById("subject").value;
+
+const res = await fetch("/.netlify/functions/generate-question", {
+method:"POST",
+body: JSON.stringify({
+subject,
+difficulty
+})
+});
+
+currentQuestion = await res.json();
+
+renderQuestion();
+startTimer();
+}
+
+function renderQuestion(){
+
+document.getElementById("question").innerText =
+currentQuestion.question;
+
+const optionsDiv =
+document.getElementById("options");
+
+optionsDiv.innerHTML = "";
+
+Object.entries(currentQuestion.options).forEach(([key,value])=>{
+
+const btn = document.createElement("button");
+
+btn.className = "option";
+
+btn.innerText = key + ": " + value;
+
+btn.onclick = ()=>checkAnswer(key);
+
+optionsDiv.appendChild(btn);
+
+});
+
+}
+
+function checkAnswer(selected){
+
+clearInterval(timer);
+
+if(selected === currentQuestion.answer){
+score++;
+alert("Correct!");
+difficulty = "medium";
+}else{
+alert("Wrong!");
+difficulty = "easy";
+}
+
+setTimeout(fetchQuestion, 2000);
+
+}
+
+function startTimer(){
+
+timeLeft = 30;
+
+document.getElementById("time").innerText = timeLeft;
+
+timer = setInterval(()=>{
+
+timeLeft--;
+
+document.getElementById("time").innerText = timeLeft;
+
+if(timeLeft <= 0){
+
+clearInterval(timer);
+
+alert("Time up!");
+
+difficulty = "easy";
+
+fetchQuestion();
+
+}
+
+},1000);
+
+}
+
+function startQuiz(){
+
+document.getElementById("quizBox").style.display = "block";
+
+fetchQuestion();
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Quantum Hub - Select Department
+</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+background:#0f172a;
+color:white;
+min-height:100vh;
+
+overflow-x:hidden;
+
+}
+
+/* BLUR */
+
+.blur1,
+.blur2{
+
+position:fixed;
+border-radius:50%;
+
+filter:blur(100px);
+
+z-index:-1;
+
+}
+
+.blur1{
+
+width:250px;
+height:250px;
+
+background:#7c3aed;
+
+top:-50px;
+left:-50px;
+
+}
+
+.blur2{
+
+width:250px;
+height:250px;
+
+background:#06b6d4;
+
+bottom:-50px;
+right:-50px;
+
+}
+
+/* NAVBAR */
+
+.navbar{
+
+padding:20px;
+
+text-align:center;
+
+font-size:24px;
+font-weight:700;
+
+}
+
+/* HERO */
+
+.hero{
+
+text-align:center;
+
+padding:20px;
+
+}
+
+.hero h1{
+
+font-size:32px;
+
+margin-bottom:10px;
+
+}
+
+.hero p{
+
+color:#cbd5e1;
+
+font-size:15px;
+
+}
+
+/* GRID */
+
+.department-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:15px;
+
+padding:20px;
+
+}
+
+.department-card{
+
+background:
+rgba(255,255,255,0.08);
+
+border:
+1px solid rgba(255,255,255,0.1);
+
+border-radius:25px;
+
+padding:25px;
+
+text-align:center;
+
+cursor:pointer;
+
+transition:.3s;
+
+backdrop-filter:blur(15px);
+
+}
+
+.department-card:hover{
+
+transform:translateY(-5px);
+
+}
+
+.department-card i{
+
+font-size:32px;
+
+margin-bottom:15px;
+
+color:#06b6d4;
+
+}
+
+.department-card h3{
+
+font-size:15px;
+
+}
+
+/* FOOTER */
+
+footer{
+
+padding:30px;
+
+text-align:center;
+
+color:#94a3b8;
+
+font-size:14px;
+
+}
+
+/* LOADING */
+
+.loading-screen{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100vh;
+
+background:#0f172a;
+
+display:none;
+
+justify-content:center;
+align-items:center;
+
+flex-direction:column;
+
+z-index:9999;
+
+}
+
+.loader{
+
+width:60px;
+height:60px;
+
+border:6px solid
+rgba(255,255,255,.1);
+
+border-top:6px solid
+#7c3aed;
+
+border-radius:50%;
+
+animation:spin 1s linear infinite;
+
+margin-bottom:20px;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+.loading-screen h2{
+
+margin-bottom:10px;
+
+}
+
+.loading-screen p{
+
+color:#cbd5e1;
+
+}
+
+
+
+.back-btn,
+.word-btn{
+background:#7c3aed;
+color:white;
+border:none;
+padding:10px 14px;
+border-radius:12px;
+font-size:13px;
+cursor:pointer;
+margin-top: 15px;
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.department-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.hero h1{
+
+font-size:26px;
+
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="blur1"></div>
+<div class="blur2"></div>
+
+<!-- NAVBAR -->
+
+
+
+
+<button class="back-btn"
+onclick="history.back()">
+← Back
+</button>
+
+<div class="navbar">
+
+Quantum Hub
+
+</div>
+
+<!-- HERO -->
+
+<div class="hero">
+
+<h1>
+
+WAEC Aggregate Predictor
+
+</h1>
+
+<p>
+
+Select your department
+to continue
+
+</p>
+
+</div>
+
+<!-- DEPARTMENTS -->
+
+<div class="department-grid">
+
+<div class="department-card"
+onclick="selectDepartment('General Science')">
+
+<i class="fas fa-flask"></i>
+
+<h3>General Science</h3>
+
+</div>
+
+<div class="department-card"
+onclick="selectDepartment('General Arts')">
+
+<i class="fas fa-book-open"></i>
+
+<h3>General Arts</h3>
+
+</div>
+
+<div class="department-card"
+onclick="selectDepartment('Business')">
+
+<i class="fas fa-briefcase"></i>
+
+<h3>Business</h3>
+
+</div>
+
+<div class="department-card"
+onclick="selectDepartment('Visual Arts')">
+
+<i class="fas fa-palette"></i>
+
+<h3>Visual Arts</h3>
+
+</div>
+
+<div class="department-card"
+onclick="selectDepartment('Home Economics')">
+
+<i class="fas fa-utensils"></i>
+
+<h3>Home Economics</h3>
+
+</div>
+
+<div class="department-card"
+onclick="selectDepartment('Technical')">
+
+<i class="fas fa-tools"></i>
+
+<h3>Technical</h3>
+
+</div>
+
+<div class="department-card"
+onclick="selectDepartment('Agricultural Science')">
+
+<i class="fas fa-leaf"></i>
+
+<h3>Agricultural Science</h3>
+
+</div>
+
+<div class="department-card"
+onclick="selectDepartment('Computer Science')">
+
+<i class="fas fa-laptop-code"></i>
+
+<h3>Computer Science</h3>
+
+</div>
+
+<div class="department-card"
+onclick="selectDepartment('Engineering')">
+
+<i class="fas fa-cogs"></i>
+
+<h3>Engineering</h3>
+
+</div>
+
+<div class="department-card"
+onclick="selectDepartment('Health Sciences')">
+
+<i class="fas fa-heartbeat"></i>
+
+<h3>Health Sciences</h3>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+© Quantum Hub 2026
+
+</footer>
+
+<!-- LOADING -->
+
+<div
+class="loading-screen"
+id="loadingScreen">
+
+<div class="loader"></div>
+
+<h2>
+
+Loading...
+
+</h2>
+
+<p>
+
+Preparing Subjects
+
+</p>
+
+</div>
+
+<script>
+
+/* SELECT DEPARTMENT */
+
+function selectDepartment(department){
+
+localStorage.setItem(
+"selectedDepartment",
+department
+);
+
+document
+.getElementById(
+"loadingScreen"
+)
+.style.display="flex";
+
+setTimeout(()=>{
+
+window.location.href=
+"page2.html";
+
+},3000);
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>AI Study Timer</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet"/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0f172a;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.container{
+width:100%;
+max-width:420px;
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.1);
+backdrop-filter:blur(12px);
+border-radius:30px;
+padding:30px 25px;
+text-align:center;
+}
+
+h1{
+font-size:30px;
+margin-bottom:10px;
+}
+
+p{
+color:#cbd5e1;
+margin-bottom:25px;
+}
+
+/* CUSTOM TIME */
+
+.input-box{
+margin-bottom:25px;
+}
+
+.input-box input{
+width:100%;
+padding:15px;
+border:none;
+outline:none;
+border-radius:15px;
+background:rgba(255,255,255,0.08);
+color:white;
+font-size:16px;
+text-align:center;
+}
+
+/* TIMER */
+
+.timer{
+font-size:70px;
+font-weight:700;
+margin-bottom:25px;
+}
+
+/* BUTTONS */
+
+.buttons{
+display:flex;
+justify-content:center;
+gap:12px;
+flex-wrap:wrap;
+}
+
+button{
+padding:14px 22px;
+border:none;
+border-radius:15px;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+color:white;
+}
+
+.start{
+background:#22c55e;
+}
+
+.pause{
+background:#f59e0b;
+}
+
+.reset{
+background:#ef4444;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+/* STATUS */
+
+.status{
+margin-top:25px;
+color:#06b6d4;
+font-size:15px;
+}
+
+/* BACK */
+
+.back-btn{
+display:inline-block;
+margin-top:25px;
+color:white;
+text-decoration:none;
+font-size:18px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>AI Study Timer</h1>
+
+<p>
+Focus smarter with AI voice assistant.
+</p>
+
+<!-- CUSTOM TIME -->
+
+<div class="input-box">
+
+<input type="number"
+id="customMinutes"
+placeholder="Enter study time in minutes">
+
+</div>
+
+<!-- TIMER -->
+
+<div class="timer"
+id="timer">
+
+00:00
+
+</div>
+
+<!-- BUTTONS -->
+
+<div class="buttons">
+
+<button class="start"
+onclick="startTimer()">
+
+Start
+
+</button>
+
+<button class="pause"
+onclick="pauseTimer()">
+
+Pause
+
+</button>
+
+<button class="reset"
+onclick="resetTimer()">
+
+Reset
+
+</button>
+
+</div>
+
+<div class="status"
+id="status">
+
+Ready to study
+
+</div>
+
+<a href="new.html"
+class="back-btn">
+
+<i class="fas fa-arrow-left"></i>
+ Back Home
+
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+let countdown;
+
+let endTime=null;
+
+let isRunning=false;
+
+const timerDisplay=
+document.getElementById("timer");
+
+const statusText=
+document.getElementById("status");
+
+const customMinutes=
+document.getElementById("customMinutes");
+
+/* AI VOICE */
+
+function speak(text){
+
+const speech=
+new SpeechSynthesisUtterance(text);
+
+speech.lang="en-US";
+
+speech.rate=1;
+
+speech.pitch=1;
+
+speech.volume=1;
+
+window.speechSynthesis.speak(speech);
+
+}
+
+/* UPDATE DISPLAY */
+
+function updateTimer(){
+
+const now=Date.now();
+
+const distance=endTime-now;
+
+if(distance<=0){
+
+clearInterval(countdown);
+
+isRunning=false;
+
+timerDisplay.innerHTML="00:00";
+
+statusText.innerHTML=
+"Study session completed!";
+
+/* AI VOICE ALERT */
+
+speak(
+"Your study time is complete. Great job."
+);
+
+/* NOTIFICATION */
+
+if(Notification.permission==="granted"){
+
+new Notification(
+"Quantum Study Hub",
+{
+
+body:"Your study session is complete."
+
+}
+
+);
+
+}
+
+localStorage.removeItem("endTime");
+
+return;
+
+}
+
+const minutes=
+Math.floor(distance/1000/60);
+
+const seconds=
+Math.floor((distance/1000)%60);
+
+timerDisplay.innerHTML=
+
+`${String(minutes).padStart(2,"0")}:
+${String(seconds).padStart(2,"0")}`;
+
+}
+
+/* START TIMER */
+
+function startTimer(){
+
+if(isRunning) return;
+
+let mins=parseInt(customMinutes.value);
+
+if(isNaN(mins) || mins<=0){
+
+alert("Enter valid minutes");
+
+return;
+
+}
+
+endTime=
+Date.now()+(mins*60*1000);
+
+localStorage.setItem(
+"endTime",
+endTime
+);
+
+updateTimer();
+
+countdown=setInterval(updateTimer,1000);
+
+isRunning=true;
+
+statusText.innerHTML=
+"Study session started";
+
+/* AI VOICE */
+
+speak(
+"Your study time has started. Stay focused and avoid distractions."
+);
+
+/* NOTIFICATION PERMISSION */
+
+if(Notification.permission!=="granted"){
+
+Notification.requestPermission();
+
+}
+
+}
+
+/* PAUSE */
+
+function pauseTimer(){
+
+clearInterval(countdown);
+
+isRunning=false;
+
+statusText.innerHTML=
+"Timer paused";
+
+speak(
+"Study timer paused."
+);
+
+}
+
+/* RESET */
+
+function resetTimer(){
+
+clearInterval(countdown);
+
+isRunning=false;
+
+timerDisplay.innerHTML="00:00";
+
+statusText.innerHTML=
+"Timer reset";
+
+localStorage.removeItem("endTime");
+
+speak(
+"Study timer reset."
+);
+
+}
+
+/* RESTORE TIMER */
+
+window.onload=()=>{
+
+const savedEndTime=
+localStorage.getItem("endTime");
+
+if(savedEndTime){
+
+endTime=parseInt(savedEndTime);
+
+updateTimer();
+
+countdown=setInterval(updateTimer,1000);
+
+isRunning=true;
+
+statusText.innerHTML=
+"Resuming study session";
+
+}
+
+};
+
+</script>
+
+</body>
+</html>

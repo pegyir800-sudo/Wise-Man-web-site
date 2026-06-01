@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>Contact - Quantum Study Hub</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet"/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0f172a;
+color:white;
+overflow-x:hidden;
+}
+
+.navbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+padding:15px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+border-bottom:1px solid rgba(255,255,255,0.1);
+z-index:1000;
+}
+
+.logo{
+font-size:22px;
+font-weight:700;
+}
+
+.back-btn{
+color:white;
+font-size:22px;
+text-decoration:none;
+}
+
+.container{
+padding:110px 20px 40px;
+max-width:800px;
+margin:auto;
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.1);
+backdrop-filter:blur(12px);
+border-radius:25px;
+padding:30px 20px;
+}
+
+.card h1{
+font-size:30px;
+margin-bottom:15px;
+}
+
+.card p{
+color:#cbd5e1;
+line-height:1.7;
+margin-bottom:20px;
+}
+
+.input-box{
+margin-bottom:20px;
+}
+
+.input-box label{
+display:block;
+margin-bottom:8px;
+font-size:14px;
+}
+
+.input-box input,
+.input-box textarea{
+width:100%;
+padding:15px;
+border:none;
+outline:none;
+border-radius:15px;
+background:rgba(255,255,255,0.08);
+color:white;
+font-size:15px;
+}
+
+textarea{
+resize:none;
+height:140px;
+}
+
+button{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+background:#7c3aed;
+color:white;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.02);
+}
+
+footer{
+text-align:center;
+padding:30px;
+color:#94a3b8;
+font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="logo">
+QuantumHub
+</div>
+
+<a href="new.html"
+class="back-btn">
+
+<i class="fas fa-arrow-left"></i>
+
+</a>
+
+</nav>
+
+<div class="container">
+
+<div class="card">
+
+<h1>Contact Us</h1>
+
+<p>
+Have questions, feedback or ideas?
+Send us a message directly.
+</p>
+
+<form action="mailto:pegyir800@gmail.com"
+method="POST"
+enctype="text/plain">
+
+<div class="input-box">
+
+<label>Your Name</label>
+
+<input type="text"
+name="Name"
+placeholder="Enter your name"
+required>
+
+</div>
+
+<div class="input-box">
+
+<label>Email Address</label>
+
+<input type="email"
+name="Email"
+placeholder="Enter your email"
+required>
+
+</div>
+
+<div class="input-box">
+
+<label>Your Message</label>
+
+<textarea
+name="Message"
+placeholder="Type your message here..."
+required></textarea>
+
+</div>
+
+<button type="submit">
+
+Send Message
+
+</button>
+
+</form>
+
+
+
+
+</div>
+
+</div>
+
+<footer>
+
+Quantum Study Hub © 2026
+
+</footer>
+
+</body>
+</html>

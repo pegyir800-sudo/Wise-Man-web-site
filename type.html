@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0">
+
+<title>Typing Zone</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0f172a;
+height:116vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:15px;
+overflow:hidden;
+color:white;
+}
+
+/* BACKGROUND */
+
+.bg1,
+.bg2{
+position:absolute;
+border-radius:50%;
+filter:blur(90px);
+z-index:-1;
+}
+
+.bg1{
+width:250px;
+height:250px;
+background:#7c3aed;
+top:-60px;
+left:-60px;
+}
+
+.bg2{
+width:250px;
+height:250px;
+background:#06b6d4;
+bottom:-60px;
+right:-60px;
+}
+
+/* CARD */
+
+.card{
+width:100%;
+max-width:420px;
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.1);
+backdrop-filter:blur(15px);
+border-radius:30px;
+padding:30px 25px;
+animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(30px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+.title{
+font-size:30px;
+font-weight:700;
+margin-bottom:15px;
+text-align:center;
+}
+
+.desc{
+font-size:15px;
+line-height:1.8;
+color:#cbd5e1;
+margin-bottom:25px;
+margin-top:15px;
+text-align:center;
+padding: auto;
+
+}
+
+/* STATS */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin-bottom:25px;
+}
+
+.stat{
+background:rgba(255,255,255,0.05);
+padding:18px;
+border-radius:18px;
+text-align:center;
+}
+
+.stat h3{
+font-size:14px;
+margin-bottom:8px;
+}
+
+.stat p{
+font-size:16px;
+font-weight:700;
+}
+
+/* RULES */
+
+.rules{
+background:rgba(255,255,255,0.05);
+padding:20px;
+border-radius:20px;
+margin-bottom:25px;
+}
+
+.rules h2{
+font-size:18px;
+margin-bottom:12px;
+}
+
+.rules p{
+font-size:14px;
+line-height:1.8;
+color:#cbd5e1;
+}
+
+/* BUTTONS */
+
+.buttons{
+display:flex;
+gap:12px;
+}
+
+button{
+flex:1;
+height:55px;
+border:none;
+border-radius:18px;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+.back-btn{
+background:#334155;
+color:white;
+}
+
+.start-btn{
+background:#7c3aed;
+color:white;
+}
+
+button:hover{
+transform:scale(1.03);
+}
+
+/* COUNTDOWN */
+
+.countdown{
+margin-top:20px;
+text-align:center;
+font-size:18px;
+font-weight:700;
+display:none;
+color:#22c55e;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg1"></div>
+<div class="bg2"></div>
+
+<div class="card">
+
+<div class="title">
+Typing Zone
+</div>
+
+<div class="desc">
+
+<h3 style="color: cyan;">Welcome to Quantum Typing Battle.</h3>
+
+Improve your typing speed,
+accuracy, spelling,
+reaction time,
+and vocabulary skills.
+
+Type the falling words
+before they touch
+the danger zone.
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat">
+
+<h3>Difficulty</h3>
+
+<p>Adaptive</p>
+
+</div>
+
+<div class="stat">
+
+<h3>Vocabulary</h3>
+
+<p>Unlimited</p>
+
+</div>
+
+<div class="stat">
+
+<h3>Lives</h3>
+
+<p>5 Hearts</p>
+
+</div>
+
+<div class="stat">
+
+<h3>Learning</h3>
+
+<p>Real Words</p>
+
+</div>
+
+</div>
+
+<!-- RULES -->
+
+<div class="rules">
+
+<h2 style="color: cyan;">Game Rules</h2>
+
+<p>
+
+• Words fall from the top.<br>
+
+• Type any visible word.<br>
+
+• Correct letters become green.<br>
+
+• Wrong typing is highlighted.<br>
+
+• If a word touches the danger line,
+you lose one heart.<br>
+
+• When hearts reach zero,
+the game ends.<br>
+
+• Every word is saved into your vocabulary system.
+
+</p>
+
+</div>
+
+<!-- BUTTONS -->
+
+<div class="buttons">
+
+<button class="back-btn"
+onclick="history.back()">
+
+Back
+
+</button>
+
+<button class="start-btn"
+id="startBtn">
+
+Start Game
+
+</button>
+
+</div>
+
+<!-- COUNTDOWN -->
+
+<div class="countdown"
+id="countdown">
+
+Starting in 3...
+
+</div>
+
+</div>
+
+<script>
+
+const startBtn =
+document.getElementById("startBtn");
+
+const countdown =
+document.getElementById("countdown");
+
+startBtn.addEventListener("click", ()=>{
+
+startBtn.disabled = true;
+
+countdown.style.display = "block";
+
+let count = 3;
+
+countdown.innerText =
+"Starting in " + count + "...";
+
+const timer =
+setInterval(()=>{
+
+count--;
+
+if(count > 0){
+
+countdown.innerText =
+"Starting in " + count + "...";
+
+}else{
+
+clearInterval(timer);
+
+countdown.innerText =
+"Loading Game...";
+
+setTimeout(()=>{
+
+location.href =
+"typing-game.html";
+
+},1000);
+
+}
+
+},1000);
+
+});
+
+</script>
+
+</body>
+</html>

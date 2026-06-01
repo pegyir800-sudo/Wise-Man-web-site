@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>Search - Quantum Study Hub</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet"/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0f172a;
+color:white;
+overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+.navbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+padding:15px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+border-bottom:1px solid rgba(255,255,255,0.1);
+z-index:1000;
+}
+
+.logo{
+font-size:22px;
+font-weight:700;
+}
+
+.back-btn{
+color:white;
+font-size:22px;
+text-decoration:none;
+}
+
+/* CONTAINER */
+
+.container{
+padding:110px 20px 40px;
+max-width:850px;
+margin:auto;
+}
+
+/* SEARCH BOX */
+
+.search-box{
+display:flex;
+align-items:center;
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:18px;
+padding:15px;
+margin-bottom:25px;
+}
+
+.search-box i{
+font-size:18px;
+margin-right:10px;
+color:#06b6d4;
+}
+
+.search-box input{
+background:none;
+border:none;
+outline:none;
+color:white;
+width:100%;
+font-size:15px;
+}
+
+/* RESULT CARDS */
+
+.results{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.1);
+backdrop-filter:blur(12px);
+border-radius:22px;
+padding:20px;
+transition:0.3s;
+text-decoration:none;
+color:white;
+}
+
+.card:hover{
+transform:translateY(-3px);
+}
+
+.card h3{
+margin-bottom:8px;
+}
+
+.card p{
+color:#cbd5e1;
+font-size:14px;
+}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:30px;
+color:#94a3b8;
+font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<div class="logo">
+QuantumHub
+</div>
+
+<a href="index.html"
+class="back-btn">
+
+<i class="fas fa-arrow-left"></i>
+
+</a>
+
+</nav>
+
+<!-- CONTENT -->
+
+<div class="container">
+
+<!-- SEARCH -->
+
+<div class="search-box">
+
+<i class="fas fa-search"></i>
+
+<input type="text"
+id="searchInput"
+placeholder="Search tools...">
+
+</div>
+
+<!-- RESULTS -->
+
+<div class="results"
+id="results">
+
+<a href="notes.html"
+class="card">
+
+<h3>Smart Notes</h3>
+
+<p>Create and save study notes.</p>
+
+</a>
+
+<a href="timer.html"
+class="card">
+
+<h3>Study Timer</h3>
+
+<p>Boost focus and productivity.</p>
+
+</a>
+
+<a href="quiz.html"
+class="card">
+
+<h3>Quiz Game</h3>
+
+<p>Train your brain daily.</p>
+
+</a>
+
+<a href="gpa.html"
+class="card">
+
+<h3>GPA Calculator</h3>
+
+<p>Calculate grades instantly.</p>
+
+</a>
+
+<a href="typing.html"
+class="card">
+
+<h3>Typing Test</h3>
+
+<p>Improve typing speed.</p>
+
+</a>
+
+</div>
+
+</div>
+
+<footer>
+
+Quantum Study Hub © 2026
+
+</footer>
+
+<script>
+
+const searchInput=
+document.getElementById("searchInput");
+
+const cards=
+document.querySelectorAll(".card");
+
+searchInput.addEventListener("keyup", ()=>{
+
+const value=
+searchInput.value.toLowerCase();
+
+cards.forEach(card=>{
+
+const text=
+card.innerText.toLowerCase();
+
+if(text.includes(value)){
+
+card.style.display="block";
+
+}else{
+
+card.style.display="none";
+
+}
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

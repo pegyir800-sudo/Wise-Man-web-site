@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Quantum Hub - Result Card
+</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0f172a;
+color:white;
+padding:15px;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+.blur1,
+.blur2{
+position:fixed;
+border-radius:50%;
+filter:blur(120px);
+z-index:-1;
+}
+
+.blur1{
+width:250px;
+height:250px;
+background:#7c3aed;
+top:-50px;
+left:-50px;
+}
+
+.blur2{
+width:250px;
+height:250px;
+background:#06b6d4;
+bottom:-50px;
+right:-50px;
+}
+
+/* NAVBAR */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.back-btn,
+.menu-btn{
+width:48px;
+height:48px;
+border:none;
+border-radius:14px;
+background:rgba(255,255,255,.08);
+color:white;
+cursor:pointer;
+font-size:18px;
+}
+
+.page-title{
+font-size:22px;
+font-weight:700;
+}
+
+/* MENU */
+
+.menu{
+display:none;
+position:fixed;
+top:75px;
+right:15px;
+width:230px;
+background:#1e293b;
+border-radius:18px;
+overflow:hidden;
+z-index:9999;
+box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+
+.menu button{
+width:100%;
+padding:15px;
+border:none;
+background:none;
+color:white;
+text-align:left;
+cursor:pointer;
+font-size:15px;
+}
+
+.menu button:hover{
+background:rgba(255,255,255,.08);
+}
+
+/* RESULT CARD */
+
+.result-card{
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.1);
+backdrop-filter:blur(15px);
+border-radius:28px;
+padding:25px;
+}
+
+.result-header{
+text-align:center;
+}
+
+.result-header h1{
+font-size:30px;
+margin-bottom:8px;
+}
+
+.result-header p{
+color:#cbd5e1;
+}
+
+.divider{
+height:1px;
+background:rgba(255,255,255,.1);
+margin:20px 0;
+}
+
+.student-info{
+display:grid;
+grid-template-columns:1fr;
+gap:12px;
+}
+
+.info-item{
+background:rgba(255,255,255,.05);
+padding:12px;
+border-radius:14px;
+}
+
+.info-label{
+font-size:12px;
+color:#94a3b8;
+margin-bottom:4px;
+}
+
+.info-value{
+font-size:15px;
+font-weight:600;
+}
+
+/* TABLE */
+
+.table-wrapper{
+margin-top:20px;
+overflow-x:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th{
+background:rgba(255,255,255,.08);
+padding:12px;
+text-align:left;
+}
+
+td{
+padding:12px;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+/* GRADES */
+
+.grade-a1{
+color:#22c55e;
+font-weight:700;
+}
+
+.grade-b{
+color:#06b6d4;
+font-weight:700;
+}
+
+.grade-c{
+color:#eab308;
+font-weight:700;
+}
+
+.grade-f{
+color:#ef4444;
+font-weight:700;
+}
+
+/* SUMMARY */
+
+.summary{
+margin-top:25px;
+display:grid;
+gap:12px;
+}
+
+.summary-card{
+background:rgba(255,255,255,.05);
+padding:15px;
+border-radius:16px;
+}
+
+.summary-card h3{
+font-size:13px;
+color:#94a3b8;
+margin-bottom:5px;
+}
+
+.summary-card p{
+font-size:18px;
+font-weight:700;
+}
+
+/* FOOTER */
+
+footer{
+padding:30px 10px;
+text-align:center;
+color:#94a3b8;
+font-size:14px;
+}
+
+@media(max-width:600px){
+
+.page-title{
+font-size:18px;
+}
+
+.result-header h1{
+font-size:24px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="blur1"></div>
+<div class="blur2"></div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<button
+class="back-btn"
+onclick="history.back()">
+
+<i class="fas fa-arrow-left"></i>
+
+</button>
+
+<div class="page-title">
+
+Result Card
+
+</div>
+
+<button
+class="menu-btn"
+onclick="toggleMenu()">
+
+<i class="fas fa-ellipsis-v"></i>
+
+</button>
+
+</div>
+
+<!-- MENU -->
+
+<div
+class="menu"
+id="menu">
+
+<button onclick="downloadImage()">
+💾 Save Image
+</button>
+
+<button onclick="downloadImage()">
+🖼 Export Image
+</button>
+
+<button onclick="shareResult()">
+📤 Share Result
+</button>
+
+<button onclick="printResult()">
+🖨 Print Result
+</button>
+
+</div>
+
+<!-- RESULT CARD -->
+
+<div
+class="result-card"
+id="resultCard">
+
+<div class="result-header">
+
+<h1>
+QUANTUM HUB
+</h1>
+
+<p>
+Official WAEC Result Card
+</p>
+
+</div>
+
+<div class="divider"></div>
+
+
+<!-- STUDENT INFORMATION -->
+
+<div class="student-info">
+
+<div class="info-item">
+<div class="info-label">
+Student Name
+</div>
+<div
+class="info-value"
+id="studentName">
+Loading...
+</div>
+</div>
+
+<div class="info-item">
+<div class="info-label">
+School Name
+</div>
+<div
+class="info-value"
+id="schoolName">
+Loading...
+</div>
+</div>
+
+<div class="info-item">
+<div class="info-label">
+Country
+</div>
+<div
+class="info-value"
+id="country">
+Loading...
+</div>
+</div>
+
+<div class="info-item">
+<div class="info-label">
+Department
+</div>
+<div
+class="info-value"
+id="department">
+Loading...
+</div>
+</div>
+
+<div class="info-item">
+<div class="info-label">
+Exam Year
+</div>
+<div
+class="info-value"
+id="examYear">
+Loading...
+</div>
+</div>
+
+</div>
+
+<!-- SUBJECT TABLE -->
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Subject
+</th>
+
+<th>
+Score
+</th>
+
+<th>
+Grade
+</th>
+
+</tr>
+
+</thead>
+
+<tbody id="subjectTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- SUMMARY -->
+
+<div class="summary">
+
+<div class="summary-card">
+
+<h3>
+Aggregate
+</h3>
+
+<p id="aggregate">
+0
+</p>
+
+</div>
+
+<div class="summary-card">
+
+<h3>
+Average
+</h3>
+
+<p id="average">
+0%
+</p>
+
+</div>
+
+<div class="summary-card">
+
+<h3>
+Performance
+</h3>
+
+<p id="performance">
+-
+</p>
+
+</div>
+
+<div class="summary-card">
+
+<h3>
+Position
+</h3>
+
+<p id="position">
+-
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+© Quantum Hub 2026
+
+</footer>
+
+<script>
+
+/* ==========================
+   MENU FUNCTIONS
+========================== */
+
+function toggleMenu(){
+
+const menu =
+document.getElementById(
+"menu"
+);
+
+if(
+menu.style.display ===
+"block"
+){
+
+menu.style.display =
+"none";
+
+}else{
+
+menu.style.display =
+"block";
+
+}
+
+}
+
+document.addEventListener(
+"click",
+function(e){
+
+const menu =
+document.getElementById(
+"menu"
+);
+
+const btn =
+document.querySelector(
+".menu-btn"
+);
+
+if(
+!menu.contains(e.target)
+&&
+!btn.contains(e.target)
+){
+
+menu.style.display =
+"none";
+
+}
+
+}
+);
+
+/* ==========================
+   WAEC GRADING SYSTEM
+========================== */
+
+function getGrade(score){
+
+score =
+Number(score);
+
+if(score >= 75)
+return {
+grade:"A1",
+point:1
+};
+
+if(score >= 70)
+return {
+grade:"B2",
+point:2
+};
+
+if(score >= 65)
+return {
+grade:"B3",
+point:3
+};
+
+if(score >= 60)
+return {
+grade:"C4",
+point:4
+};
+
+if(score >= 55)
+return {
+grade:"C5",
+point:5
+};
+
+if(score >= 50)
+return {
+grade:"C6",
+point:6
+};
+
+if(score >= 45)
+return {
+grade:"D7",
+point:7
+};
+
+if(score >= 40)
+return {
+grade:"E8",
+point:8
+};
+
+return {
+grade:"F9",
+point:9
+};
+
+}
+
+
+
+/* ==========================
+   LOAD STUDENT DATA
+========================== */
+
+window.addEventListener(
+"load",
+function(){
+
+const studentName =
+localStorage.getItem(
+"studentName"
+) || "Not Set";
+
+const schoolName =
+localStorage.getItem(
+"schoolName"
+) || "Not Set";
+
+const country =
+localStorage.getItem(
+"country"
+) || "Not Set";
+
+const department =
+localStorage.getItem(
+"selectedDepartment"
+) || "Not Set";
+
+const examYear =
+localStorage.getItem(
+"examYear"
+) || "Not Set";
+
+const scores =
+JSON.parse(
+localStorage.getItem(
+"scores"
+)
+) || {};
+
+document.getElementById(
+"studentName"
+).textContent =
+studentName;
+
+document.getElementById(
+"schoolName"
+).textContent =
+schoolName;
+
+document.getElementById(
+"country"
+).textContent =
+country;
+
+document.getElementById(
+"department"
+).textContent =
+department;
+
+document.getElementById(
+"examYear"
+).textContent =
+examYear;
+
+buildResultTable(
+scores
+);
+
+});
+
+/* ==========================
+   BUILD RESULTS
+========================== */
+
+function buildResultTable(
+scores
+){
+
+const table =
+document.getElementById(
+"subjectTable"
+);
+
+table.innerHTML = "";
+
+let totalScore = 0;
+
+let points = [];
+
+const subjects =
+Object.keys(scores);
+
+if(
+subjects.length === 0
+){
+
+table.innerHTML = `
+<tr>
+<td colspan="3">
+No Subjects Found
+</td>
+</tr>
+`;
+
+return;
+
+}
+
+subjects.forEach(
+subject=>{
+
+const score =
+Number(
+scores[subject]
+) || 0;
+
+const result =
+getGrade(score);
+
+totalScore += score;
+
+points.push(
+result.point
+);
+
+let cls =
+"grade-f";
+
+if(
+result.grade === "A1"
+){
+cls = "grade-a1";
+}
+else if(
+result.grade.startsWith(
+"B"
+)
+){
+cls = "grade-b";
+}
+else if(
+result.grade.startsWith(
+"C"
+)
+){
+cls = "grade-c";
+}
+
+table.innerHTML += `
+
+<tr>
+
+<td>
+${subject}
+</td>
+
+<td>
+${score}
+</td>
+
+<td class="${cls}">
+${result.grade}
+</td>
+
+</tr>
+
+`;
+
+});
+
+const average =
+(
+totalScore /
+subjects.length
+).toFixed(1);
+
+points.sort(
+(a,b)=>a-b
+);
+
+const aggregate =
+points
+.slice(0,6)
+.reduce(
+(a,b)=>a+b,
+0
+);
+
+let performance =
+"";
+
+if(average >= 80){
+
+performance =
+"Excellent";
+
+}
+else if(
+average >= 70
+){
+
+performance =
+"Very Good";
+
+}
+else if(
+average >= 60
+){
+
+performance =
+"Good";
+
+}
+else if(
+average >= 50
+){
+
+performance =
+"Average";
+
+}
+else{
+
+performance =
+"Needs Improvement";
+
+}
+
+let position =
+"";
+
+if(
+average >= 85
+){
+
+position =
+"Top 5%";
+
+}
+else if(
+average >= 75
+){
+
+position =
+"Top 10%";
+
+}
+else if(
+average >= 65
+){
+
+position =
+"Top 25%";
+
+}
+else{
+
+position =
+"Average Student";
+
+}
+
+document.getElementById(
+"aggregate"
+).textContent =
+aggregate;
+
+document.getElementById(
+"average"
+).textContent =
+average + "%";
+
+document.getElementById(
+"performance"
+).textContent =
+performance;
+
+document.getElementById(
+"position"
+).textContent =
+position;
+
+}
+
+/* ==========================
+   SAVE / EXPORT IMAGE
+========================== */
+
+function downloadImage(){
+
+const card =
+document.getElementById(
+"resultCard"
+);
+
+html2canvas(
+card,
+{
+scale:2,
+useCORS:true
+}
+
+).then(
+canvas=>{
+
+const link =
+document.createElement(
+"a"
+);
+
+link.download =
+"QuantumHub_Result.png";
+
+link.href =
+canvas.toDataURL(
+"image/png"
+);
+
+link.click();
+
+}
+);
+
+}
+
+/* ==========================
+   SHARE RESULT
+========================== */
+
+async function shareResult(){
+
+const card =
+document.getElementById(
+"resultCard"
+);
+
+try{
+
+const canvas =
+await html2canvas(
+card,
+{
+scale:2
+}
+);
+
+canvas.toBlob(
+async(blob)=>{
+
+const file =
+new File(
+[blob],
+"QuantumHub_Result.png",
+{
+type:"image/png"
+}
+);
+
+if(
+navigator.canShare &&
+navigator.canShare({
+files:[file]
+})
+){
+
+await navigator.share({
+
+title:
+"Quantum Hub Result",
+
+text:
+"My WAEC Result Card",
+
+files:
+[file]
+
+});
+
+}else{
+
+alert(
+"Sharing not supported on this device."
+);
+
+}
+
+}
+);
+
+}catch(error){
+
+console.error(
+error
+);
+
+alert(
+"Unable to share result."
+);
+
+}
+
+}
+
+/* ==========================
+   PRINT RESULT
+========================== */
+
+function printResult(){
+
+window.print();
+
+}
+
+</script>
+
+</body>
+</html>
+

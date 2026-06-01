@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>Profile - Quantum Study Hub</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet"/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0f172a;
+color:white;
+overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+.navbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+padding:15px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+border-bottom:1px solid rgba(255,255,255,0.1);
+z-index:1000;
+}
+
+.logo{
+font-size:22px;
+font-weight:700;
+}
+
+.back-btn{
+color:white;
+font-size:22px;
+text-decoration:none;
+}
+
+/* CONTAINER */
+
+.container{
+padding:110px 20px 40px;
+max-width:850px;
+margin:auto;
+}
+
+/* PROFILE CARD */
+
+.profile-card{
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.1);
+backdrop-filter:blur(12px);
+border-radius:30px;
+padding:30px 20px;
+text-align:center;
+margin-bottom:25px;
+}
+
+.profile-image{
+width:110px;
+height:110px;
+border-radius:50%;
+background:#7c3aed;
+display:flex;
+justify-content:center;
+align-items:center;
+margin:auto;
+font-size:45px;
+margin-bottom:20px;
+}
+
+.profile-card h2{
+margin-bottom:8px;
+}
+
+.profile-card p{
+color:#cbd5e1;
+font-size:14px;
+}
+
+/* MENU */
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.menu a{
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.1);
+padding:18px;
+border-radius:20px;
+text-decoration:none;
+color:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+transition:0.3s;
+}
+
+.menu a:hover{
+transform:translateX(5px);
+}
+
+.menu i{
+font-size:18px;
+}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:30px;
+color:#94a3b8;
+font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<div class="logo">
+QuantumHub
+</div>
+
+<a href="index.html"
+class="back-btn">
+
+<i class="fas fa-arrow-left"></i>
+
+</a>
+
+</nav>
+
+<!-- CONTENT -->
+
+<div class="container">
+
+<!-- PROFILE -->
+
+<div class="profile-card">
+
+<div class="profile-image">
+
+<i class="fas fa-user"></i>
+
+</div>
+
+<h2>Student User</h2>
+
+<p>
+Welcome to Quantum Study Hub
+</p>
+
+</div>
+
+<!-- MENU -->
+
+<div class="menu">
+
+<a href="progress.html">
+
+<span>
+<i class="fas fa-chart-line"></i>
+ Study Progress
+</span>
+
+<i class="fas fa-chevron-right"></i>
+
+</a>
+
+<a href="notes.html">
+
+<span>
+<i class="fas fa-book"></i>
+ My Notes
+</span>
+
+<i class="fas fa-chevron-right"></i>
+
+</a>
+
+<a href="timer.html">
+
+<span>
+<i class="fas fa-clock"></i>
+ Study Timer
+</span>
+
+<i class="fas fa-chevron-right"></i>
+
+</a>
+
+<a href="privacy.html">
+
+<span>
+<i class="fas fa-lock"></i>
+ Privacy Policy
+</span>
+
+<i class="fas fa-chevron-right"></i>
+
+</a>
+
+<a href="contact.html">
+
+<span>
+<i class="fas fa-envelope"></i>
+ Contact Support
+</span>
+
+<i class="fas fa-chevron-right"></i>
+
+</a>
+
+</div>
+
+</div>
+
+<footer>
+
+Quantum Study Hub © 2026
+
+</footer>
+
+</body>
+</html>
